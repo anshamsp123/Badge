@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claims Processing System</title>
+    <meta name="description" content="AI-powered insurance claims processing with intelligent document analysis">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient1)" />
+                        <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" stroke="white" stroke-width="2"
+                            stroke-linejoin="round" />
+                        <circle cx="20" cy="20" r="4" fill="white" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea" />
+                                <stop offset="100%" stop-color="#764ba2" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>ClaimAI</h1>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" data-view="upload">Upload</button>
+                    <button class="nav-btn" data-view="chat">Chat</button>
+                    <button class="nav-btn" data-view="documents">Documents</button>
+                </nav>
+            </div>
+            <div class="chat-section">
+                <div class="section-header">
+                    <h2>AI Claims Assistant</h2>
+                    <p>Ask questions about your uploaded documents</p>
+                </div>
+
+                <div class="chat-container">
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="chat-messages">
+                        <div class="welcome-message">
+                            <div class="welcome-icon">🤖</div>
+                            <h3>Welcome to ClaimAI Assistant</h3>
+                            <p>I can help you analyze your insurance documents. Upload documents and ask me
+                                anything!</p>
+                            <div class="example-questions">
+                                <p><strong>Try asking:</strong></p>
+                                <button class="example-q" data-q="What is the policy number?">What is the policy
+                                    number?</button>
+                                <button class="example-q" data-q="What is the claim amount?">What is the claim
+                                    amount?</button>
+                                <button class="example-q" data-q="What hospital was the treatment at?">What hospital
+                                    was the treatment at?</button>
+                                <button class="example-q" data-q="Summarize the key details">Summarize the key
+                                    details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <input type="text" id="chatInput" class="chat-input"
+                                placeholder="Ask a question about your documents..." autocomplete="off">
+                            <button id="sendBtn" class="send-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 8L11 13" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+
+            <!-- Documents View -->
+            <section id="documents-view" class="view">
+                <div class="documents-section">
+                    <div class="section-header">
+                        <h2>Uploaded Documents</h2>
+                        <p>Manage and view your processed documents</p>
+                    </div>
+
+                    <div id="documentsList" class="documents-list">
+                        <div class="empty-state">
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                <rect x="15" y="10" width="50" height="60" rx="4" stroke="currentColor"
+                                    stroke-width="2" />
+                                <line x1="25" y1="25" x2="55" y2="25" stroke="currentColor" stroke-width="2" />
+                                <line x1="25" y1="35" x2="55" y2="35" stroke="currentColor" stroke-width="2" />
+                                <line x1="25" y1="45" x2="45" y2="45" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                            <h3>No Documents Yet</h3>
+                            <p>Upload documents to get started</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+
+        <script src="/static/app.js"></script>
+</body>
+
+</html>

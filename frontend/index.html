@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claims Processing System</title>
+    <meta name="description" content="AI-powered insurance claims processing with intelligent document analysis">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient1)" />
+                        <path d="M20 10L28 16V24L20 30L12 24V16L20 10Z" stroke="white" stroke-width="2"
+                            stroke-linejoin="round" />
+                        <circle cx="20" cy="20" r="4" fill="white" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea" />
+                                <stop offset="100%" stop-color="#764ba2" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>ClaimAI</h1>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" data-view="upload">Upload</button>
+                    <button class="nav-btn" data-view="chat">Chat</button>
+                    <button class="nav-btn" data-view="documents">Documents</button>
+                    <button class="nav-btn" data-view="submit-claim">Submit Claim</button>
+
+                </nav>
+            </div>
+            <!-- Upload View -->
+            <section id="upload-view" class="view active">
+                <div class="upload-section">
+                    <div class="section-header">
+                        <h2>Upload Documents</h2>
+                        <p>Upload your policy or claim documents for AI processing</p>
+                    </div>
+
+                    <div class="upload-content">
+                        <div id="uploadArea" class="upload-area">
+                            <div class="upload-icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+                            <h3>Drag & Drop files here</h3>
+                            <p>or click to browse</p>
+                            <button id="browseBtn" class="btn-primary">Browse Files</button>
+                            <input type="file" id="fileInput" hidden multiple />
+                        </div>
+
+                        <div class="upload-controls">
+                            <label for="docTypeSelect">Document Type:</label>
+                            <select id="docTypeSelect" class="form-select">
+                                <option value="policy">Policy Document</option>
+                                <option value="claim_form">Claim Form</option>
+                                <option value="hospital_bill">Hospital Bill</option>
+                                <option value="surveyor_report">Surveyor Report</option>
+                                <option value="discharge_summary">Discharge Summary</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id="processingStatus" class="processing-container hidden">
+                            <h3>Processing Status</h3>
+                            <div id="statusList" class="status-list">
+                                <!-- Status items will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat View -->
+            <section id="chat-view" class="view">
+                <div class="chat-section">
+                    <div class="section-header">
+                        <h2>AI Claims Assistant</h2>
+                        <p>Ask questions about your uploaded documents</p>
+                    </div>
+
+                    <div class="chat-container">
+                        <!-- Chat Messages -->
+                        <div id="chatMessages" class="chat-messages">
+                            <div class="welcome-message">
+                                <div class="welcome-icon">🤖</div>
+                                <h3>Welcome to ClaimAI Assistant</h3>
+                                <p>I can help you analyze your insurance documents. Upload documents and ask me
+                                    anything!</p>
+                                <div class="example-questions">
+                                    <p><strong>Try asking:</strong></p>
+                                    <button class="example-q" data-q="What is the policy number?">What is the policy
+                                        number?</button>
+                                    <button class="example-q" data-q="What is the claim amount?">What is the claim
+                                        amount?</button>
+                                    <button class="example-q" data-q="What hospital was the treatment at?">What hospital
+                                        was the treatment at?</button>
+                                    <button class="example-q" data-q="Summarize the key details">Summarize the key
+                                        details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <input type="text" id="chatInput" class="chat-input"
+                                    placeholder="Ask a question about your documents..." autocomplete="off">
+                                <button id="sendBtn" class="send-btn">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 8L11 13" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documents View -->
+            <section id="documents-view" class="view">
+                <div class="documents-section">
+                    <div class="section-header">
+                        <h2>Uploaded Documents</h2>
+                        <p>Manage and view your processed documents</p>
+                    </div>
+
+                    <div id="documentsList" class="documents-list">
+                        <!-- Documents will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit Claim View -->
+            <section id="submit-claim-view" class="view">
+                <div class="claim-section">
+                    <div class="section-header">
+                        <h2>Submit New Claim</h2>
+                        <p>File a claim for AI-powered processing</p>
+                    </div>
+
+                    <div class="form-container">
+                        <form id="claimForm">
+                            <div class="form-group">
+                                <label for="policyId">Policy Number</label>
+                                <input type="text" id="policyId" placeholder="e.g., POL-2024-MH-789456" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="treatmentType">Treatment Type</label>
+                                    <select id="treatmentType" required>
+                                        <option value="">Select Treatment</option>
+                                        <option value="general_surgery">Surgery (General)</option>
+                                        <option value="hospitalization">Hospitalization</option>
+                                        <option value="cardiac">Cardiac</option>
+                                        <option value="orthopedic">Orthopedic</option>
+                                        <option value="dental">Dental</option>
+                                        <option value="maternity">Maternity</option>
+                                        <option value="accident">Accident</option>
+                                        <option value="other">Other (Consultation/Diagnostic)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="treatmentDate">Treatment Date</label>
+                                    <input type="date" id="treatmentDate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="claimedAmount">Claim Amount (₹)</label>
+                                    <input type="number" id="claimedAmount" placeholder="0.00" min="0" step="0.01"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hospitalName">Hospital Name</label>
+                                    <input type="text" id="hospitalName" placeholder="Enter hospital name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="claimDescription">Description</label>
+                                <textarea id="claimDescription" rows="4"
+                                    placeholder="Briefly describe the treatment and reason for claim"
+                                    required></textarea>
+                            </div>
+
+                            <button type="submit" id="submitClaimBtn" class="btn-primary">Submit Claim</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Claim Result View -->
+            <section id="claim-result-view" class="view">
+                <div class="result-section">
+                    <div class="section-header">
+                        <h2>Claim Decision</h2>
+                        <p>AI Analysis Result & Explanation</p>
+                        <button onclick="showClaimForm()" class="btn-text">← Back to Form</button>
+                    </div>
+
+                    <div id="claimResultContent">
+                        <!-- Results populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+
+        <script src="/static/auth.js"></script>
+        <script src="/static/app.js"></script>
+        <script src="/static/claim.js"></script>
+</body>
+
+</html>
