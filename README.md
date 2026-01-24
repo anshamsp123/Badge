@@ -45,6 +45,10 @@ Assists users with document management and reminders
 
 ---
 
+## 🏗️ System Architecture
+
+---
+
 ## 🔍 Key Features
 
 ### Automated Claim Decision
