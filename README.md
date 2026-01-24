@@ -46,6 +46,8 @@ Assists users with document management and reminders
 ---
 
 ## 🏗️ System Architecture
+![System Architecture](system_architecture.png)
+
 
 ---
 
