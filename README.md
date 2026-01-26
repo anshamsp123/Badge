@@ -80,3 +80,7 @@ Assists users with document management and reminders
 ### Notifications
 - Premium payment reminders
 - Claim status updates
+
+## 📄 Research Paper Regarding this project
+
+  [Click here to open (PDF)](Advisory_System_ResearchPaper.pdf)
